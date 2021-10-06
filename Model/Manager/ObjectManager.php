@@ -10,19 +10,29 @@ class ObjectManager {
     /**
      * Return true if the data add into the data base
      * @param $sql
+     * @param $data
      * @return bool
      */
-    public static function add($sql): bool {
-        return DB::getInstance()->prepare($sql)->execute();
+    public static function add($sql, $data): bool {
+        $stmt = DB::getInstance()->prepare($sql);
+        foreach ($data as $key => $value) {
+            $stmt->setAttribute("$key", $value);
+        }
+        return $stmt->execute();
     }
 
     /**
      * Return true if the data has been updated into the data base
      * @param $sql
+     * @param $data
      * @return bool
      */
-    public static function update($sql): bool {
-        return DB::getInstance()->prepare($sql)->execute();
+    public static function update($sql, $data): bool {
+        $stmt = DB::getInstance()->prepare($sql);
+        foreach ($data as $key => $value) {
+            $stmt->setAttribute("$key", $value);
+        }
+        return $stmt->execute();
     }
 
     /**

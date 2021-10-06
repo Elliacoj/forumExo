@@ -51,6 +51,7 @@ class Token {
     public function setToken(?string $token): Token
     {
         $this->token = $token;
+        return $this;
     }
 
     /**
