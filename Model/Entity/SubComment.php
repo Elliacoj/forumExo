@@ -6,7 +6,7 @@ namespace App\Model\Entity;
 
 class SubComment {
     private ?int $id;
-    private ?string $comment;
+    private ?string $content;
     private ?User $userFK;
     private ?Comment $commentFk;
     private ?string $report;
@@ -19,10 +19,10 @@ class SubComment {
      * @param Comment|null $commentFk
      * @param string|null $report
      */
-    public function __construct(int $id = null, string $comment = null, User $userFK = null, Comment $commentFk = null, string $report = null)
+    public function __construct(int $id = null, string $content = null, User $userFK = null, Comment $commentFk = null, string $report = null)
     {
         $this->id = $id;
-        $this->comment = $comment;
+        $this->content = $content;
         $this->userFK = $userFK;
         $this->commentFk = $commentFk;
         $this->report = $report;
@@ -38,22 +38,22 @@ class SubComment {
     }
 
     /**
-     * Return the comment of Sub comment
+     * Return the content of Sub comment
      * @return string|null
      */
-    public function getComment(): ?string
+    public function getContent(): ?string
     {
-        return $this->comment;
+        return $this->content;
     }
 
     /**
-     * Set the comment of Sub comment
-     * @param string|null $comment
+     * Set the content of Sub comment
+     * @param string|null $content
      * @return SubComment
      */
-    public function setComment(?string $comment): SubComment
+    public function setContent(?string $content): SubComment
     {
-        $this->comment = $comment;
+        $this->content = $content;
         return $this;
     }
 

@@ -41,6 +41,20 @@ class CommentManager {
     }
 
     /**
+     * Update a data into Comment table
+     * @param Comment $comment
+     * @return bool
+     */
+    public function updateReport(Comment $comment):bool {
+        $id = $comment->getId();
+        $report = $comment->getReport();
+
+        $data = ["report" => $report, "id" => $id];
+
+        return ObjectManager::update("UPDATE ellia_comment SET report = :report WHERE id = :id", $data);
+    }
+
+    /**
      * Delete a data into Comment table
      * @param $id
      * @return bool
