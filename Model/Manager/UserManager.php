@@ -42,6 +42,20 @@ class UserManager {
     }
 
     /**
+     * Update a data into User table
+     * @param User $user
+     * @return bool
+     */
+    public function updateActivated(User $user):bool {
+        $id = $user->getId();
+        $activated = $user->getActivated();
+
+        $data = ["id" => $id, "activated" => $activated];
+
+        return ObjectManager::update("UPDATE ellia_user SET activated = :activated WHERE id = :id", $data);
+    }
+
+    /**
      * Delete a data into User table
      * @param $id
      * @return bool
