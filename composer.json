@@ -1,0 +1,25 @@
+{
+  "name": "forum/forum-exo",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Amaury",
+      "email": "amaury.jocaille@hotmail.com"
+    }
+  ],
+  "autoload": {
+  "psr-4": {
+    "App\\Model\\Classes\\": "Model/Classes",
+    "App\\Model\\Entity\\": "Model/Entity",
+    "App\\Model\\Manager\\Traits\\": "Model/Manager/Traits",
+    "App\\Model\\Manager\\": "Model/Manager",
+    "App\\Controller\\": "Controller",
+    "App\\Controller\\Traits\\": "Controller/Traits"
+  }
+},
+  "require": {
+    "ext-pdo": "*"
+  }
+}
