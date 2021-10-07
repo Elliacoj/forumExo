@@ -9,7 +9,7 @@ $requestType = $_SERVER['REQUEST_METHOD'];
 
 switch ($requestType) {
     case "GET":
-        getCategories();
+        echo getCategories();
         break;
 }
 
