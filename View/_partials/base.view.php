@@ -11,6 +11,6 @@
 <body>
 <?php require_once "menu.view.php"; ?>
 <?= $html ?>
-<script src="../../asset/js/generalScript.js"></script>
+<script src="../../asset/js/menuAndLogin.js"></script>
 </body>
 </html>
