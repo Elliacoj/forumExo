@@ -54,7 +54,7 @@ class TokenManager {
      * @param $userFk
      * @return Object
      */
-    public function searchToken($token, $userFk):Object {
+    public function searchToken($token, $userFk):?Object {
         return ObjectManager::search("SELECT * FROM ellia_token WHERE token = '$token' AND user_fk = '$userFk'", Token::class);
     }
 

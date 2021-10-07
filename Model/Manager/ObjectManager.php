@@ -16,7 +16,7 @@ class ObjectManager {
     public static function add($sql, $data): bool {
         $stmt = DB::getInstance()->prepare($sql);
         foreach ($data as $key => $value) {
-            $stmt->setAttribute("$key", $value);
+            $stmt->bindValue("$key", $value);
         }
         return $stmt->execute();
     }
@@ -30,7 +30,7 @@ class ObjectManager {
     public static function update($sql, $data): bool {
         $stmt = DB::getInstance()->prepare($sql);
         foreach ($data as $key => $value) {
-            $stmt->setAttribute("$key", $value);
+            $stmt->bindValue("$key", $value);
         }
         return $stmt->execute();
     }

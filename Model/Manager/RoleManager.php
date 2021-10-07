@@ -51,7 +51,7 @@ class RoleManager {
      * @param $id
      * @return Object
      */
-    public function search($id):Object {
+    public function search($id):?Object {
         return ObjectManager::search("SELECT * FROM ellia_role WHERE id = '$id'", Role::class);
     }
 

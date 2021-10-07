@@ -69,7 +69,25 @@ class UserManager {
      * @param $username
      * @return Object
      */
-    public function searchUsername($username):Object {
+    public function searchUsername($username):?Object {
         return ObjectManager::search("SELECT * FROM ellia_user WHERE username = '$username'", User::class);
+    }
+
+    /**
+     * Return an user
+     * @param $mail
+     * @return Object
+     */
+    public function searchMail($mail):?Object {
+        return ObjectManager::search("SELECT * FROM ellia_user WHERE mail = '$mail'", User::class);
+    }
+
+    /**
+     * Return an user
+     * @param $id
+     * @return Object
+     */
+    public function search($id):?Object {
+        return ObjectManager::search("SELECT * FROM ellia_user WHERE id = '$id'", User::class);
     }
 }

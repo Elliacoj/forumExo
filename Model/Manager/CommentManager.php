@@ -68,7 +68,7 @@ class CommentManager {
      * @param $id
      * @return Object
      */
-    public function search($id):Object {
+    public function search($id):?Object {
         return ObjectManager::search("SELECT * FROM ellia_comment WHERE id = '$id'", Comment::class);
     }
 

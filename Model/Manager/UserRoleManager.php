@@ -53,7 +53,7 @@ class UserRoleManager {
      * @param $userFk
      * @return Object
      */
-    public function searchUser($userFk):Object {
+    public function searchUser($userFk):?Object {
         return ObjectManager::search("SELECT * FROM ellia_user_role WHERE user_fk = '$userFk'", UserRole::class);
     }
 

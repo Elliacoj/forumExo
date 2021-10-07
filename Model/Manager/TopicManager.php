@@ -79,7 +79,7 @@ class TopicManager {
      * @param $id
      * @return Object
      */
-    public function search($id):Object {
+    public function search($id):?Object {
         return ObjectManager::search("SELECT * FROM ellia_topic WHERE id = '$id'", Topic::class);
     }
 

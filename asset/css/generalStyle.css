@@ -134,6 +134,10 @@ h2 {
     overflow: hidden;
 }
 
+#createDiv {
+    display: none;
+}
+
 @media screen and (max-width: 1300px) {
     #loginCreateDiv {
         width: 60%;
