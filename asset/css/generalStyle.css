@@ -7,3 +7,37 @@
 HTML {
     font-size: 62.5%;
 }
+
+body {
+    font-size: 2rem;
+    background-color: #3f3f41;
+}
+
+nav {
+    display: flex;
+    width: 80%;
+    position: static;
+    margin: 0 auto;
+}
+
+nav div {
+    width: 20%;
+    text-align: center;
+    border: 2px solid darkgray;
+    padding: 1% 0;
+    background-color: #121212;
+    font-weight: bold;
+}
+
+nav #categoryList, nav a {
+    cursor: pointer;
+    color: #f0f0f0;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+nav #categoryList:hover, nav a:hover {
+    color: yellow;
+}
