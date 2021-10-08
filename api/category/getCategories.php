@@ -15,8 +15,18 @@ switch ($requestType) {
     case "POST":
         setCategory(json_decode(file_get_contents('php://input')));
         break;
+    case "PUT":
+        updateCategory(json_decode(file_get_contents('php://input')));
+        break;
+    case "DELETE":
+        deleteCategory(json_decode(file_get_contents('php://input')));
+        break;
 }
 
+/**
+ * Return all categories
+ * @return false|string
+ */
 function getCategories() {
     $categories = CategoryManager::getManager()->get();
     $allCategories = [];
@@ -27,6 +37,26 @@ function getCategories() {
     return json_encode($allCategories);
 }
 
+/**
+ * Add a category into category table
+ * @param $data
+ */
 function setCategory($data) {
     CategoryManager::getManager()->add(new Category(null, $data->name));
+}
+
+/**
+ * Update a category into category table
+ * @param $data
+ */
+function updateCategory($data) {
+    CategoryManager::getManager()->update(new Category($data->id, $data->name));
+}
+
+/**
+ * Delete a category into category table
+ * @param $data
+ */
+function deleteCategory($data) {
+    CategoryManager::getManager()->delete($data->id);
 }

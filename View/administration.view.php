@@ -57,7 +57,7 @@ if(isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
                 <select name="deleteCategory" id="deleteCategory" class="dropDownCategories"></select>
             </div>
             <div>
-                <input type="button" class="buttonSubmit" value="Supprimer">
+                <input type="button" class="buttonSubmit" value="Supprimer" id="sendDeleteCategory">
             </div>
         </form>
     </div>

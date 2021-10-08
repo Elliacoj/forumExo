@@ -46,9 +46,44 @@ buttonNewCategory.addEventListener("click", function () {
 });
 
 let buttonUpdateCategory = document.getElementById("sendUpdateCategory");
+let updateNameCategory = document.getElementById("updateName")
+let updateCategory = document.getElementById("updateCategory")
+
+buttonUpdateCategory.addEventListener("click", function () {
+    if(updateNameCategory.value !== '') {
+        let xml = new XMLHttpRequest();
+        let data = {'name': updateNameCategory.value, "id": updateCategory.value};
+
+        xml.responseType = "json";
+        xml.open("PUT", "../../api/category/getCategories.php");
+        xml.setRequestHeader('Content-Type', 'application/json');
+
+        xml.send(JSON.stringify(data));
+        updateNameCategory.value = '';
+        categoriesDropDown();
+    }
+})
+
+let buttonDeleteCategory = document.getElementById("sendDeleteCategory");
+let deleteCategory = document.getElementById("deleteCategory");
+
+buttonDeleteCategory.addEventListener("click", function () {
+    let xml = new XMLHttpRequest();
+    let data = {"id": deleteCategory.value};
+
+    xml.responseType = "json";
+    xml.open("DELETE", "../../api/category/getCategories.php");
+    xml.setRequestHeader('Content-Type', 'application/json');
+
+    xml.send(JSON.stringify(data));
+    categoriesDropDown();
+})
 
 categoriesDropDown();
 
+/**
+ * Get and add all option into dropdown categories
+ */
 function categoriesDropDown() {
     let dropDownCategories = document.querySelectorAll(".dropDownCategories");
     let xml = new XMLHttpRequest();
