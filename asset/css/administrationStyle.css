@@ -4,6 +4,7 @@
     margin: 3% auto;
     border-radius: 10px;
     padding-bottom: 10px;
+    overflow: hidden;
 }
 
 .administrationDiv div:first-child h3 {
@@ -53,7 +54,7 @@
 }
 
 .firstDivAdmin {
-    margin-top: 0 !important;
+    margin-top: 1% !important;
 }
 
 .administrationDiv select {
@@ -72,4 +73,22 @@
 .administrationDiv div label {
     position: absolute;
     left: 15%;
+}
+
+.administrationDiv i {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes dropDownAdmin {
+    0% {
+        height: 70px;
+    }
+    100% {
+        height: 1000px;
+    }
 }
