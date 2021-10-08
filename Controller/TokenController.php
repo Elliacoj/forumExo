@@ -5,9 +5,12 @@ namespace App\Controller;
 
 
 use App\Model\Entity\Token;
+use App\Model\Entity\UserRole;
+use App\Model\Manager\RoleManager;
 use App\Model\Manager\TokenManager;
 use App\Model\Manager\Traits\TraitsManager;
 use App\Model\Manager\UserManager;
+use App\Model\Manager\UserRoleManager;
 
 class TokenController {
     use TraitsManager;
@@ -26,6 +29,9 @@ class TokenController {
         }
 
         $user = UserManager::getManager()->search($userFk);
+        $role = RoleManager::getManager()->search(3);
+        $userRole = new UserRole(null, $user, $role);
+        UserRoleManager::getManager()->add($userRole);
         TokenManager::getManager()->add((new Token(null, $token, $user)));
 
         header("Location: ../index.php?controller=token&action=check&token=$token$userFk");
@@ -39,6 +45,25 @@ class TokenController {
      */
     public function check() {
         $token = filter_var($_GET['token'], FILTER_SANITIZE_STRING);
-        $tokenCh = substr($this, 0, -2);
+        $tokenCh = substr($token, 0, 20);
+        $userFk = substr($token, 20);
+
+        if(TokenManager::getManager()->searchToken($tokenCh, $userFk) !== null) {
+            $user = UserManager::getManager()->search($userFk);
+
+            $user->setActivated(true);
+            UserManager::getManager()->updateActivated($user);
+
+            $role = (UserRoleManager::getManager()->searchUser($user->getId()))->getRoleFk()->getId();
+
+            $_SESSION['username'] = $user->getUsername();
+            $_SESSION['id'] = $user->getId();
+            $_SESSION['role'] = $role;
+
+            header("Location: ../index.php?error=5");
+        }
+        else {
+            header("Location: ../index.php?error=6");
+        }
     }
 }

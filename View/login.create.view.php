@@ -2,7 +2,7 @@
 <div id="loginCreateDiv">
     <div id="loginDiv">
         <h3>Connexion</h3>
-        <form action="" method="post">
+        <form action="../index.php?controller=user&action=login" method="post">
             <div>
                 <label for="loginUsername">Nom d'utilisateur:</label>
                 <input type="text" id="loginUsername" name="loginUsername" required title="Votre nom d'utilisateur" maxlength="45">

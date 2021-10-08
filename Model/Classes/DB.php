@@ -6,9 +6,9 @@ use PDO;
 use PDOException;
 
 class DB {
-    private string $host = '';
-    private string $dbName = '';
-    private string $userName = '';
+    private string $host = 'localhost';
+    private string $dbName = 'forum';
+    private string $userName = 'root';
     private string $password = '';
 
     private static ?PDO $instance = null;
