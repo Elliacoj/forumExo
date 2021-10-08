@@ -1,0 +1,34 @@
+@media screen and (max-width: 1300px) {
+    #loginCreateDiv {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #loginCreateDiv {
+        width: 75%;
+    }
+    HTML {
+        font-size: 55%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #loginCreateDiv {
+        width: 100%;
+    }
+
+    HTML {
+        font-size: 45%;
+    }
+
+    nav {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    HTML {
+        font-size: 35%;
+    }
+}

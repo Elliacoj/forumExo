@@ -77,7 +77,7 @@ class UserController {
             header("Location: ../index.php");
         }
         else {
-            header("Location: ../index.php?error=8");
+            header("Location: ../index.php?controller=user&error=8");
         }
     }
 }

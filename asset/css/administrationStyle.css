@@ -1,0 +1,75 @@
+.administrationDiv {
+    width: 60%;
+    background-color: #f0f0f0;
+    margin: 3% auto;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.administrationDiv div:first-child h3 {
+    width: 95%;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 3rem;
+}
+
+.administrationDiv div:first-child {
+    display: flex;
+    text-align: center;
+}
+
+.administrationDiv div:first-child p {
+    display: flex;
+    width: 5%;
+    padding: 7px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.administrationDiv h4 {
+    text-align: center;
+    margin-top: 20px;
+    text-decoration-line: underline;
+}
+
+.administrationDiv form div {
+    margin: 20px 0 10px 0;
+    position: relative;
+    height: 50px;
+}
+
+.administrationDiv form div input {
+    width: 35%;
+    position: absolute;
+    left: 45%;
+    height: 100%;
+    text-align: right;
+    padding: 0 10px;
+    font-size: 2rem;
+}
+
+.administrationDiv div {
+    margin-top: 5%;
+}
+
+.firstDivAdmin {
+    margin-top: 0 !important;
+}
+
+.administrationDiv select {
+    font-weight: bold;
+    padding: 1% 0;
+    position: absolute;
+    left: 45%;
+    top: 5%
+}
+
+.administrationDiv select option {
+    font-weight: bold;
+    padding: 1% 0;
+}
+
+.administrationDiv div label {
+    position: absolute;
+    left: 15%;
+}

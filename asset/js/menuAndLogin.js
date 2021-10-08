@@ -34,8 +34,8 @@ function createListMenu() {
  * Change color of category menu
  */
 function colorListCategory() {
-    if(categoryMenu.style.color !== "yellow") {
-        categoryMenu.style.color = "yellow";
+    if(categoryMenu.style.color !== "lightblue") {
+        categoryMenu.style.color = "lightblue";
     }
     else {
         categoryMenu.style.color = "#f0f0f0";
@@ -56,7 +56,7 @@ if(categoryMenu) {
             categoryMenu.removeEventListener("mouseleave", colorListCategory);
         }
         else {
-            categoryMenu.style.color = "yellow";
+            categoryMenu.style.color = "lightblue";
         }
     });
 
@@ -114,7 +114,7 @@ function switchAccount() {
     if(createAccount.style.display === "none") {
         createAccount.style.height = "0";
         loginAccount.animate([
-            { height: "320px" },
+            { height: "340px" },
             { height: "0" }
         ], {
             duration: 500,
@@ -126,14 +126,14 @@ function switchAccount() {
             createAccount.style.display = "block";
             createAccount.animate([
                 { height: "0" },
-                { height: "480px" }
+                { height: "520px" }
             ], {
                 duration: 500,
                 iterations: 1
             });
 
             setTimeout(function () {
-                createAccount.style.height = "480px";
+                createAccount.style.height = "520px";
             }, 490);
         }, 490);
     }
@@ -141,7 +141,7 @@ function switchAccount() {
         loginAccount.style.height = "0";
 
         createAccount.animate([
-            { height: "480px" },
+            { height: "520px" },
             { height: "0" }
         ], {
             duration: 500,
@@ -153,15 +153,27 @@ function switchAccount() {
             loginAccount.style.display = "block";
             loginAccount.animate([
                 { height: "0" },
-                { height: "320px" }
+                { height: "340px" }
             ], {
                 duration: 500,
                 iterations: 1
             });
 
             setTimeout(function () {
-                loginAccount.style.height = "320px";
+                loginAccount.style.height = "340px";
             }, 490);
         }, 495);
     }
+}
+
+let welcomeUser = document.getElementById("welcomeUser");
+
+if(welcomeUser) {
+    welcomeUser.animate([
+        { right: "+65%" },
+        { right: "-60%" }
+    ], {
+        duration: 10000,
+        iterations: Infinity
+    });
 }

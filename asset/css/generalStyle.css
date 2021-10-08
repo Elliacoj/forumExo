@@ -11,15 +11,16 @@ HTML {
 body {
     font-size: 2rem;
     background-color: #3f3f41;
-    height: 100vh;
+    font-family: "Arial Black", sans-serif;
+
 }
 
 h1, h2 {
     color: #f0f0f0;
 }
 
-h1, h2, nav div, #loginCreateDiv h3, #loginCreateDiv label, #loginCreateDiv input, #loginCreateDiv p {
-    text-align: center;
+h1, h2, nav div, #loginCreateDiv h3, #loginCreateDiv label, #loginCreateDiv input, #loginCreateDiv p, #welcomeUser, .buttonSubmit {
+    text-align: center !important;
 }
 
 nav {
@@ -70,7 +71,7 @@ a {
 }
 
 nav a:hover {
-    color: yellow;
+    color: lightblue;
 }
 
 h1, h2 {
@@ -138,28 +139,62 @@ h2 {
     display: none;
 }
 
-@media screen and (max-width: 1300px) {
-    #loginCreateDiv {
-        width: 60%;
-    }
+#welcomeUser {
+    color: lightblue;
+    font-size: 4rem;
+    margin-top: 3.5%;
+    position: relative;
+    font-style: oblique;
 }
 
-@media screen and (max-width: 1000px) {
-    #loginCreateDiv {
-        width: 75%;
-    }
+#profileDiv {
+    background: #f0f0f0;
+    width: 60%;
+    margin: 3% auto;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px 11px dimgray;
+    padding-bottom: 10px;
 }
 
-@media screen and (max-width: 650px) {
-    #loginCreateDiv {
-        width: 100%;
-    }
-
-    HTML {
-        font-size: 45%;
-    }
-
-    nav {
-        width: 95%;
-    }
+#profileDiv p {
+    padding-left: 30%;
+    padding-top: 20px;
 }
+
+#profileDiv span {
+    font-style: italic;
+    color: dodgerblue;
+}
+
+#profileDiv div {
+    width: 225px;
+    font-weight: bold;
+    margin: 20px auto;
+    font-size: 1.5rem;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
+#profileDiv div:hover {
+    background-color: #e0dcdc;
+}
+
+#profileDiv a:hover {
+    color: #1e90ff;
+}
+
+#profileDiv a {
+    padding: 5px 0;
+    width: 100%;
+    display: block;
+    color: #121212;
+    text-align: center;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+}
+
+#divWelcomeUser {
+    overflow: hidden;
+    width: 100%;
+}
+
