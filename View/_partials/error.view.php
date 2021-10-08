@@ -15,4 +15,10 @@ switch (filter_var($_GET['error'], FILTER_SANITIZE_NUMBER_INT)) {
     case "8": ?>
         <div class="errorRed">Le nom d'utilisateur ou le mot de passe ne correspond pas!</div> <?php
         break;
+    case "9": ?>
+        <div class="errorRed">Ce compte n'est pas activé ou est banni!</div> <?php
+        break;
+    case "10": ?>
+        <div class="errorRed">Vous devez être connecter pour aller ici!</div> <?php
+        break;
 }

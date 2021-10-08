@@ -48,7 +48,8 @@ class TokenController {
         $tokenCh = substr($token, 0, 20);
         $userFk = substr($token, 20);
 
-        if(TokenManager::getManager()->searchToken($tokenCh, $userFk) !== null) {
+        $tokenObject = TokenManager::getManager()->searchToken($tokenCh, $userFk);
+        if($tokenObject !== null) {
             $user = UserManager::getManager()->search($userFk);
 
             $user->setActivated(true);
@@ -59,6 +60,8 @@ class TokenController {
             $_SESSION['username'] = $user->getUsername();
             $_SESSION['id'] = $user->getId();
             $_SESSION['role'] = $role;
+
+            TokenManager::getManager()->delete($tokenObject->getId());
 
             header("Location: ../index.php?error=5");
         }

@@ -19,7 +19,7 @@ function createListMenu() {
             let a = document.createElement("a");
             subDiv.style.cssText = "width: 100%; height: 100%; border: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;";
             a.style.cssText = "display: block; width: 100%; text-align: center; padding-top: 5px";
-            a.innerHTML = e;
+            a.innerHTML = e["name"];
             a.href = "";
 
             div.appendChild(subDiv);

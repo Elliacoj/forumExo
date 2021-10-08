@@ -1,5 +1,9 @@
 <?php
 $user = $data['user'];
+
+if(!isset($_SESSION['id'], $_SESSION['role'], $_SESSION['username'])) {
+    header("Location: ../index.php?controller=user&error=10");
+}
 ?>
 <h2>Votre profil</h2>
 <div id="profileDiv">

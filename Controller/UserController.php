@@ -68,13 +68,18 @@ class UserController {
         $user = UserManager::getManager()->searchUsername($username);
 
         if($user !== null && password_verify($password, $user->getPassword())) {
-            $role = (UserRoleManager::getManager()->searchUser($user->getId()))->getRoleFk()->getId();
+            if($user->getActivated() === 1) {
+                $role = (UserRoleManager::getManager()->searchUser($user->getId()))->getRoleFk()->getId();
 
-            $_SESSION['username'] = $user->getUsername();
-            $_SESSION['id'] = $user->getId();
-            $_SESSION['role'] = $role;
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['id'] = $user->getId();
+                $_SESSION['role'] = $role;
 
-            header("Location: ../index.php");
+                header("Location: ../index.php");
+            }
+            else {
+                header("Location: ../index.php?controller=user&error=9");
+            }
         }
         else {
             header("Location: ../index.php?controller=user&error=8");

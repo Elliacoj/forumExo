@@ -90,4 +90,12 @@ class UserManager {
     public function search($id):?Object {
         return ObjectManager::search("SELECT * FROM ellia_user WHERE id = '$id'", User::class);
     }
+
+    /**
+     * Return a table of all user
+     * @return array
+     */
+    public function get():array {
+        return ObjectManager::get("SELECT * FROM ellia_user", User::class);
+    }
 }
