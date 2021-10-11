@@ -288,3 +288,31 @@ h2 {
     padding-left: 10px;
     padding-bottom: 5px;
 }
+
+#topicDiv {
+    width: 80%;
+    background-color: #f0f0f0;
+    box-shadow: 7px 7px 5px darkgray;
+    margin: 3% auto;
+    border: 1px solid darkgray;
+}
+
+#titleTopicView {
+    text-align: center;
+    font-size: 4rem;
+    color: darkcyan;
+    margin-top: 30px;
+    text-transform: uppercase;
+    text-decoration-line: underline;
+}
+
+#contentTopicView {
+    margin: 30px 10% 20px 10%;
+}
+
+#backButtonTopic {
+    width: 30%;
+    margin: 0 auto;
+    display: block;
+    font-size: 2.5rem;
+}

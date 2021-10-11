@@ -21,7 +21,11 @@ use App\Model\Manager\TopicManager;
                 }?>
                 <div class="topicDivRedirects" data-id="<?= $topic->getId() ?>">
                     <div class="titleTopicList"><?= $topic->getTitle() ?></div>
-                    <div class="footerTopicList"><span>Par: <?= $topic->getUserFk()->getUsername() ?></span><Span><?= $topic->getCategoryFk()->getName() ?></Span><span><?= $modif . date("d M Y", strtotime($topic->getDatetime())) ?></span></div>
+                    <div class="footerTopicList">
+                        <span>Par: <?= $topic->getUserFk()->getUsername() ?></span>
+                        <Span><?= $topic->getCategoryFk()->getName() ?></Span>
+                        <span><?= $modif . date("d M Y", strtotime($topic->getDatetime())) ?></span>
+                    </div>
                 </div> <?php
                 $x++;
                 if($x === 4) {
