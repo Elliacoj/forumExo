@@ -267,6 +267,7 @@ h2 {
     box-shadow: 7px 7px 5px darkgray;
     border: 1px solid darkgray;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .titleTopicList {
@@ -286,7 +287,7 @@ h2 {
     color: #3f3f41;
     padding-right: 10px;
     padding-left: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 #topicDiv {
@@ -295,6 +296,8 @@ h2 {
     box-shadow: 7px 7px 5px darkgray;
     margin: 3% auto;
     border: 1px solid darkgray;
+    border-radius: 5px;
+    position: relative;
 }
 
 #titleTopicView {
@@ -315,4 +318,15 @@ h2 {
     margin: 0 auto;
     display: block;
     font-size: 2.5rem;
+}
+
+#deleteTopic, #updateTopic {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#updateTopic {
+    right: 50px;
 }

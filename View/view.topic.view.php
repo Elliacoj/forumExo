@@ -27,8 +27,15 @@ if($topic->getStatus() === 1) {
         <span>Par: <?= $topic->getUserFk()->getUsername() ?></span>
         <span><?= $status ?></span>
         <span><?= $modif . date("d M Y", strtotime($topic->getDatetime())) ?></span>
-    </div>
+    </div> <?php
+    if(isset($_SESSION['id'], $_SESSION['role'])) {
+        if(($_SESSION['id'] === $topic->getUserFk()->getId()) || $_SESSION['role'] !== 3) { ?>
+        <div id="deleteTopic"><i class="fas fa-trash-alt" title="Supprimer"></i></div>
+        <div id="updateTopic"><i class="fas fa-pen"></i></div> <?php
+        }
+    } ?>
 </div>
+
 <div>
     <input type="button" value="Retour" id="backButtonTopic" class="buttonSubmit backButton">
 </div>
