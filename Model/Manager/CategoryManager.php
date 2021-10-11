@@ -62,4 +62,13 @@ class CategoryManager {
     public function get():array {
         return ObjectManager::get("SELECT * FROM ellia_category", Category::class);
     }
+
+    /**
+     * Return a category
+     * @param $name
+     * @return Object
+     */
+    public function searchName($name):?Object {
+        return ObjectManager::search("SELECT * FROM ellia_category WHERE name = '$name'", Category::class);
+    }
 }

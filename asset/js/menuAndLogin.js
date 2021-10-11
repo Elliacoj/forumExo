@@ -20,7 +20,7 @@ function createListMenu() {
             subDiv.style.cssText = "width: 100%; height: 100%; border: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;";
             a.style.cssText = "display: block; width: 100%; text-align: center; padding-top: 5px";
             a.innerHTML = e["name"];
-            a.href = "";
+            a.href = "/index.php?controller=home&action=redirectCategory&category=" + e['name'];
 
             div.appendChild(subDiv);
             subDiv.appendChild(a);

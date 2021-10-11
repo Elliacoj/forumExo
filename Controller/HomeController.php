@@ -29,4 +29,9 @@ class HomeController {
     public function administration() {
         $this->render("administration", "Panel d'administration");
     }
+
+    public function redirectCategory() {
+        $category = filter_var($_GET['category'], FILTER_SANITIZE_STRING);
+        $this->render("category", "Catégorie " . $category);
+    }
 }

@@ -175,15 +175,15 @@ h2 {
     border-radius: 10px;
 }
 
-#profileDiv div:hover {
+#profileDiv div:hover, #createTopicButton:hover {
     background-color: #e0dcdc;
 }
 
-#profileDiv a:hover {
+#profileDiv a:hover, #createTopicButton a:hover {
     color: #1e90ff;
 }
 
-#profileDiv a {
+#profileDiv a, #createTopicButton a {
     padding: 5px 0;
     width: 100%;
     display: block;
@@ -198,3 +198,23 @@ h2 {
     width: 100%;
 }
 
+#categoryDiv {
+    width: 80%;
+    margin: 3% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+#createTopicButton {
+    width: 20%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
+#nothingDiv {
+    width: 100%;
+    text-align: center;
+    color: #f0f0f0;
+    margin-top: 5%;
+}
