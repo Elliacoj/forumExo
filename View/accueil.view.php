@@ -17,7 +17,7 @@ use App\Model\Manager\TopicManager;
             foreach ($allTopic as $topic) {
                 $modif = '';
                 if($topic->getModify() === 1) {
-                    $modif = "Mise à jour le: ";
+                    $modif = "Modifié le: ";
                 }?>
                 <div class="topicDivRedirects" data-id="<?= $topic->getId() ?>">
                     <div class="titleTopicList"><?= $topic->getTitle() ?></div>

@@ -7,7 +7,7 @@ $topic = TopicManager::getManager()->search($data['id']);
 $commentaries = CommentManager::getManager()->get($topic->getId());
 $modif = "";
 if($topic->getModify() !== 0) {
-    $modif = "Mise à jour le: ";
+    $modif = "Modifié le: ";
 }
 
 $status = "Ouvert";
