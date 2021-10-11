@@ -74,25 +74,14 @@ if(isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
         <form>
             <div>
                 <label for="updateUserRole">Utilisateur:</label>
-                <select name="updateUserRole" id="updateUserRole"> <?php
-                    foreach ($allUser as $user) { ?>
-                    <option value="<?= $user->getId() ?>"><?= $user->getUsername() ?></option> <?php
-                    }
-                    ?>
-                </select>
+                <select name="updateUserRole" id="updateUserRole" class="dropDownUser"></select>
             </div>
             <div>
                 <label for="updateRole">Role:</label>
-                <select name="updateRole" id="updateRole"> <?php
-                    foreach ($allRole as $role) {
-                        if("1" == 1) { ?>
-                    <option value="<?= $role->getId() ?>"><?= $role->getName() ?></option> <?php
-                        }
-                    } ?>
-                </select>
+                <select name="updateRole" id="updateRole"></select>
             </div>
             <div>
-                <input type="submit" class="buttonSubmit">
+                <input type="button" class="buttonSubmit" value="Envoyer" id="sendUpdateRole">
             </div>
         </form>
     </div>
@@ -101,16 +90,24 @@ if(isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
         <h4>Bannir un utilisateur</h4>
         <form>
             <div>
-                <label for="deleteUser">Utilisateur:</label>
-                <select name="deleteUser" id="deleteUser"> <?php
-                    foreach ($allUser as $user) { ?>
-                        <option value="<?= $user->getId() ?>"><?= $user->getUsername() ?></option> <?php
-                    }
-                    ?>
-                </select>
+                <label for="banUser">Utilisateur:</label>
+                <select name="banUser" id="banUser" class="dropDownUser"></select>
             </div>
             <div>
-                <input type="submit" class="buttonSubmit" value="Bannir">
+                <input type="button" class="buttonSubmit" value="Bannir" id="sendBanUser">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <h4>Débannir un utilisateur</h4>
+        <form>
+            <div>
+                <label for="unbanUser">Utilisateur:</label>
+                <select name="unbanUser" id="unbanUser" class="dropDownUser"></select>
+            </div>
+            <div>
+                <input type="button" class="buttonSubmit" value="Débannir" id="sendUnbanUser">
             </div>
         </form>
     </div>

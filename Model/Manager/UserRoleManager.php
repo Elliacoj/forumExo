@@ -31,12 +31,11 @@ class UserRoleManager {
      */
     public function update(UserRole $userRole):bool {
         $id = $userRole->getId();
-        $userFk = $userRole->getUserFk()->getId();
         $roleFk = $userRole->getRoleFk()->getId();
 
-        $data = ["userFk" => $userFk, "roleFk" => $roleFk, "id" => $id];
+        $data = ["roleFk" => $roleFk, "id" => $id];
 
-        return ObjectManager::update("UPDATE ellia_user_role SET name = :name WHERE id = :id", $data);
+        return ObjectManager::update("UPDATE ellia_user_role SET role_fk = :roleFk WHERE id = :id", $data);
     }
 
     /**

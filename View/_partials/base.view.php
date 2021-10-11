@@ -14,7 +14,12 @@
 <body>
 <?php require_once "menu.view.php"; ?>
 <?= $html ?>
-<script src="../../asset/js/menuAndLogin.js"></script>
-<script src="../../asset/js/administration.js"></script>
+<script src="../../asset/js/menuAndLogin.js"></script> <?php
+
+if(isset($_GET['action'], $_GET['controller']) && $_GET['action'] === "administration" && $_GET['controller'] === "home") { ?>
+<script src="../../asset/js/administration.js"></script> <?php
+} ?>
+
+
 </body>
 </html>

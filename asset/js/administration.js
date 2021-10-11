@@ -106,3 +106,120 @@ function categoriesDropDown() {
     }
     xml.send();
 }
+
+let dropDownUserList = document.getElementById("updateUserRole");
+let dropDownRole = document.getElementById("updateRole");
+
+dropDownUserList.addEventListener("change", function () {
+    dropDownRole.value = dropDownUserList.childNodes[dropDownUserList.selectedIndex].dataset.role;
+})
+
+/**
+ * Get and add all option into dropdown categories
+ */
+function userDropDown() {
+    let dropDownUser = document.querySelectorAll(".dropDownUser");
+
+    let xml = new XMLHttpRequest();
+    xml.responseType = "json";
+    xml.open("GET", "../../api/userRole/getUserRole.php");
+    xml.onload = function () {
+        let response = xml.response;
+
+        dropDownRole.innerHTML = '';
+        response['role'].forEach(function (r) {
+            if(r['name'] !== "admin") {
+                let option = document.createElement("option");
+                option.innerHTML = r['name'];
+                option.value = r["id"];
+
+                dropDownRole.appendChild(option);
+            }
+
+        });
+
+        dropDownUser.forEach(function (e) {
+            e.innerHTML = '';
+            response["user"].forEach(function (r) {
+                if((r['username'] !== "Elliacoj") && e.id !== "banUser" && e.id !== "unbanUser" && r['ban'] === 1) {
+                    let option = document.createElement("option");
+                    option.innerHTML = r['username'];
+                    option.value = r['id'];
+                    option.dataset.role = r['role'];
+
+                    e.appendChild(option);
+                }
+
+                if((r['username'] !== "Elliacoj") && e.id === "banUser" && r['ban'] === 1) {
+                    let option = document.createElement("option");
+                    option.innerHTML = r['username'];
+                    option.value = r['id'];
+                    option.dataset.role = r['role'];
+
+                    e.appendChild(option);
+                }
+
+                if((r['username'] !== "Elliacoj") && e.id === "unbanUser" && r['ban'] === 2) {
+                    let option = document.createElement("option");
+                    option.innerHTML = r['username'];
+                    option.value = r['id'];
+                    option.dataset.role = r['role'];
+
+                    e.appendChild(option);
+                }
+            });
+        });
+
+        dropDownRole.value = response["user"][1]['role'];
+    }
+    xml.send();
+}
+
+userDropDown();
+
+let buttonUpdateRole = document.getElementById("sendUpdateRole");
+
+buttonUpdateRole.addEventListener("click", function () {
+    if(dropDownUserList.value !== '') {
+        let xml = new XMLHttpRequest();
+        let data = {'role': dropDownRole.value, "idUser": dropDownUserList.value};
+
+        xml.responseType = "json";
+        xml.open("PUT", "../../api/userRole/getUserRole.php");
+        xml.setRequestHeader('Content-Type', 'application/json');
+
+        xml.send(JSON.stringify(data));
+
+        userDropDown();
+    }
+});
+
+let buttonBanUser = document.getElementById("sendBanUser");
+let buttonUnbanUser = document.getElementById("sendUnbanUser")
+let banUser = document.getElementById("banUser");
+let unbanUser = document.getElementById("unbanUser");
+
+buttonBanUser.addEventListener("click", function () {
+    if(banUser.value !== '') {
+        ban(2, banUser.value);
+    }
+})
+
+buttonUnbanUser.addEventListener("click", function () {
+    if(unbanUser.value !== '') {
+        ban(1, unbanUser.value);
+    }
+})
+
+function ban(val, userVal){
+    let xml = new XMLHttpRequest();
+    let data = {'id': userVal, "ban": val};
+
+    xml.responseType = "json";
+    xml.open("DELETE", "../../api/userRole/getUserRole.php");
+    xml.setRequestHeader('Content-Type', 'application/json');
+
+    xml.send(JSON.stringify(data));
+
+    userDropDown();
+}
