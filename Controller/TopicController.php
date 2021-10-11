@@ -43,4 +43,45 @@ class TopicController {
 
         $this->render("view.topic", "Sujet", ["id" => $idTopic]);
     }
+
+    /**
+     * Redirects into update.topic page
+     */
+    public function update() {
+        $idTopic = filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT);
+
+        $this->render("update.topic", "Sujet", ["id" => $idTopic]);
+    }
+
+    /**
+     * Add a new topic into topic table
+     */
+    public function updateConfirm() {
+        $title = filter_var($_POST['updateTitleTopic'], FILTER_SANITIZE_STRING);
+        $content = nl2br(filter_var($_POST['updateContentTopic'], FILTER_SANITIZE_STRING));
+
+        $topic = TopicManager::getManager()->search($_SESSION['topic']);
+        $topic->setTitle($title)->setContent($content)->setModify(1);
+
+        TopicManager::getManager()->update($topic);
+
+        header("Location: /index.php?controller=topic&action=view&topic=" . $topic->getId() ."");
+    }
+
+    /**
+     * Add a new topic into topic table
+     */
+    public function archived() {
+        $topic = TopicManager::getManager()->search($_SESSION['topic']);
+        if($topic->getStatus() === 0) {
+            $topic->setStatus(1);
+        }
+        else {
+            $topic->setStatus(0);
+        }
+
+        TopicManager::getManager()->updateStatus($topic);
+
+        header("Location: /index.php?controller=topic&action=view&topic=" . $topic->getId() ."");
+    }
 }

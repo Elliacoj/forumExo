@@ -30,8 +30,9 @@ if($topic->getStatus() === 1) {
     </div> <?php
     if(isset($_SESSION['id'], $_SESSION['role'])) {
         if(($_SESSION['id'] === $topic->getUserFk()->getId()) || $_SESSION['role'] !== 3) { ?>
-        <div id="deleteTopic"><i class="fas fa-trash-alt" title="Supprimer"></i></div>
-        <div id="updateTopic"><i class="fas fa-pen"></i></div> <?php
+        <div id="deleteTopic" data-id="<?= $topic->getId() ?>"><i class="fas fa-trash-alt" title="Supprimer"></i></div>
+        <div id="updateTopic" data-id="<?= $topic->getId() ?>"><i class="fas fa-pen" title="Modifier"></i></div>
+        <div id="archivedTopic" data-id="<?= $topic->getId() ?>"><i class="fas fa-archive"></i></div> <?php
         }
     } ?>
 </div>

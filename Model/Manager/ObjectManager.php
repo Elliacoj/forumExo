@@ -29,7 +29,7 @@ class ObjectManager {
      */
     public static function update($sql, $data): bool {
         $stmt = DB::getInstance()->prepare($sql);
-
+        print_r($data);
         foreach ($data as $key => $value) {
             $stmt->bindValue("$key", $value);
         }

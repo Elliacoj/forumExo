@@ -35,18 +35,16 @@ class TopicManager {
         $id = $topic->getId();
         $title = $topic->getTitle();
         $content = $topic->getContent();
-        $userFk = $topic->getUserFk()->getId();
-        $category = $topic->getCategoryFk()->getId();
         $datetime = date("Y-m-d H:i:s");
         $modify = $topic->getModify();
 
         $data = [
-            "title" => $title, "content" => $content, "userFk" => $userFk, "category" => $category, "id" => $id,
+            "title" => $title, "content" => $content, "id" => $id,
             "datetime" => $datetime, "modify" => $modify
         ];
 
         return ObjectManager::update(
-            "UPDATE ellia_topic SET title = :title, content = :content, user_fk = :userFk, category_fk = :category, modify = :modify 
+            "UPDATE ellia_topic SET title = :title, content = :content, modify = :modify, datetime = :datetime
                  WHERE id = :id", $data
         );
     }

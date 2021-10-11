@@ -290,6 +290,19 @@ h2 {
     padding-bottom: 10px;
 }
 
+.footerTopicList span:nth-child(2) {
+    text-align: center;
+}
+
+.footerTopicList span:nth-child(1) {
+    text-align: left;
+}
+
+.footerTopicList span {
+    width: 30%;
+    display: inline-block;
+}
+
 #topicDiv {
     width: 80%;
     background-color: #f0f0f0;
@@ -320,7 +333,7 @@ h2 {
     font-size: 2.5rem;
 }
 
-#deleteTopic, #updateTopic {
+#deleteTopic, #updateTopic, #archivedTopic {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -328,5 +341,9 @@ h2 {
 }
 
 #updateTopic {
-    right: 50px;
+    right: 3%;
+}
+
+#archivedTopic {
+    right: 6%;
 }
