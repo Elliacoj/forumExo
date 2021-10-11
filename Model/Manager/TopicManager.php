@@ -23,7 +23,7 @@ class TopicManager {
 
         $data = ["title" => $title, "content" => $content, "userFk" => $userFk, "category" => $category];
 
-        return ObjectManager::add("INSERT INTO ellia_topic (title, content, user_fk, category) VALUES(:title, :content, :userFk, :category)", $data);
+        return ObjectManager::add("INSERT INTO ellia_topic (title, content, user_fk, category_fk) VALUES(:title, :content, :userFk, :category)", $data);
     }
 
     /**
@@ -46,7 +46,7 @@ class TopicManager {
         ];
 
         return ObjectManager::update(
-            "UPDATE ellia_topic SET title = :title, content = :content, user_fk = :userFk, category = :category, modify = :modify 
+            "UPDATE ellia_topic SET title = :title, content = :content, user_fk = :userFk, category_fk = :category, modify = :modify 
                  WHERE id = :id", $data
         );
     }
@@ -90,5 +90,13 @@ class TopicManager {
      */
     public function getByCategory($categoryFk):array {
         return ObjectManager::get("SELECT * FROM ellia_topic WHERE category_fk = $categoryFk", Topic::class);
+    }
+
+    /**
+     * Return a table of all topic
+     * @return array
+     */
+    public function get():array {
+        return ObjectManager::get("SELECT * FROM ellia_topic", Topic::class);
     }
 }

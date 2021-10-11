@@ -177,3 +177,23 @@ if(welcomeUser) {
         iterations: Infinity
     });
 }
+
+let buttonReturn = document.querySelectorAll(".backButton");
+
+if(buttonReturn) {
+    buttonReturn.forEach(function (e) {
+        e.addEventListener("click", function () {
+            window.history.back();
+        });
+    })
+}
+
+let divTopicRedirects = document.querySelectorAll(".topicDivRedirects");
+
+if(divTopicRedirects) {
+    divTopicRedirects.forEach(function (e) {
+        e.addEventListener("click", function () {
+            window.location = "../../index.php?controller=topic&action=view&topic=" + e.dataset.id +"";
+        })
+    })
+}
