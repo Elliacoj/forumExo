@@ -35,6 +35,18 @@ if($topic->getStatus() === 1) {
     } ?>
 </div>
 
+<div id="commentDiv">
+    <h3>Commentaires</h3>
+    <div>
+        <form>
+            <div>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <input type="button" class="buttonSubmit backButton" value="Envoyer">
+            </div>
+        </form>
+    </div>
+</div>
+
 <div>
     <a href="/index.php?controller=home&action=redirectCategory&category=<?= $topic->getCategoryFk()->getName() ?>">
         <input type="submit" value="Retour" id="backButtonTopic" class="buttonSubmit backButton">

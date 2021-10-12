@@ -303,7 +303,7 @@ h2 {
     display: inline-block;
 }
 
-#topicDiv {
+#topicDiv, #commentDiv {
     width: 80%;
     background-color: #f0f0f0;
     box-shadow: 7px 7px 5px darkgray;
@@ -352,4 +352,37 @@ h2 {
     width: 50%;
     border-radius: 3px;
     background-color: #f0f0f0;
+}
+
+#commentDiv h3 {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 3rem;
+    text-decoration-line: underline;
+    font-style: italic;
+    color: darkcyan;
+}
+
+#commentDiv form div {
+    width: 80%;
+    margin: 2% auto;
+}
+
+#commentDiv textarea {
+    width: 80%;
+    height: 50px;
+    padding: 1%;
+    font-size: 2rem;
+}
+
+#commentDiv form div {
+    display: flex;
+    align-items: center;
+}
+
+#commentDiv form input {
+    padding: 10px;
+    margin-bottom: 0 !important;
+    margin-left: 10px;
 }
