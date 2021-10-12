@@ -20,7 +20,10 @@ $topic = TopicManager::getManager()->search($data['id']);
             <input type="submit" value="Envoyer" class="buttonSubmit">
         </div>
     </form>
+
     <div>
-        <input type="button" value="Retour" class="buttonSubmit backButton">
+        <a href="/index.php?controller=topic&action=view&topic=<?= $topic->getId() ?>">
+            <input type="button" value="Retour" class="buttonSubmit backButton">
+        </a>
     </div>
 </div>

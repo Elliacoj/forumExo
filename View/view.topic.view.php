@@ -14,9 +14,7 @@ $status = "Ouvert";
 
 if($topic->getStatus() === 1) {
     $status = "Archivé";
-}
-
- ?>
+} ?>
 
 <h2><?= $topic->getCategoryFk()->getName() ?></h2>
 
@@ -38,6 +36,8 @@ if($topic->getStatus() === 1) {
 </div>
 
 <div>
-    <input type="button" value="Retour" id="backButtonTopic" class="buttonSubmit backButton">
+    <a href="/index.php?controller=home&action=redirectCategory&category=<?= $topic->getCategoryFk()->getName() ?>">
+        <input type="submit" value="Retour" id="backButtonTopic" class="buttonSubmit backButton">
+    </a>
 </div>
 

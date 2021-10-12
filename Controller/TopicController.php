@@ -84,4 +84,12 @@ class TopicController {
 
         header("Location: /index.php?controller=topic&action=view&topic=" . $topic->getId() ."");
     }
+
+    public function delete() {
+        $topic = TopicManager::getManager()->search(filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT));
+        $category = $topic->getCategoryFk()->getName();
+        TopicManager::getManager()->delete($topic->getId());
+
+        header("Location: /index.php?controller=home&action=redirectCategory&category=" . $category ."");
+    }
 }

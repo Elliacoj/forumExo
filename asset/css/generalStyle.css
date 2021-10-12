@@ -19,7 +19,7 @@ h1, h2 {
     color: #f0f0f0;
 }
 
-h1, h2, nav div, #loginCreateDiv h3, #loginCreateDiv label, #loginCreateDiv input, #loginCreateDiv p, #welcomeUser, .buttonSubmit {
+h1, h2, nav div, #loginCreateDiv h3, #loginCreateDiv label, #loginCreateDiv input, #loginCreateDiv p, #welcomeUser, .buttonSubmit, a.buttonSubmit {
     text-align: center !important;
 }
 
@@ -346,4 +346,10 @@ h2 {
 
 #archivedTopic {
     right: 6%;
+}
+
+#aButton {
+    width: 50%;
+    border-radius: 3px;
+    background-color: #f0f0f0;
 }

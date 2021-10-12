@@ -178,18 +178,6 @@ if(welcomeUser) {
     });
 }
 
-let buttonReturn = document.querySelectorAll(".backButton");
-
-if(buttonReturn) {
-    buttonReturn.forEach(function (e) {
-        e.addEventListener("click", function () {
-            console.log(window.history.state)
-
-            window.history.back();
-        });
-    })
-}
-
 let divTopicRedirects = document.querySelectorAll(".topicDivRedirects");
 
 if(divTopicRedirects) {
