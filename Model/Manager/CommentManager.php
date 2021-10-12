@@ -21,7 +21,7 @@ class CommentManager {
 
         $data = ["userFk" => $userFk, "topicFk" => $topicFk, "content" => $content];
 
-        return ObjectManager::add("INSERT INTO ellia_comment (user_fk, topic_fk, comment) VALUES(:userFk, :topicFk, :content)", $data);
+        return ObjectManager::add("INSERT INTO ellia_comment (user_fk, topic_fk, content) VALUES(:userFk, :topicFk, :content)", $data);
     }
 
     /**

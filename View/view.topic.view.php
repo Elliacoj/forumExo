@@ -4,7 +4,8 @@ use App\Model\Manager\CommentManager;
 use App\Model\Manager\TopicManager;
 
 $topic = TopicManager::getManager()->search($data['id']);
-$commentaries = CommentManager::getManager()->get($topic->getId());
+$_SESSION['topicComment'] = $data['id'];
+
 $modif = "";
 if($topic->getModify() !== 0) {
     $modif = "Modifié le: ";
@@ -36,15 +37,19 @@ if($topic->getStatus() === 1) {
 </div>
 
 <div id="commentDiv">
-    <h3>Commentaires</h3>
+    <h3>Commentaires</h3> <?php
+    if(isset($_SESSION['id'], $_SESSION['role']) && $topic->getStatus() !== 1) {?>
     <div>
         <form>
             <div>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-                <input type="button" class="buttonSubmit backButton" value="Envoyer">
+                <textarea name="commentContent" id="commentContent" cols="30" rows="10"></textarea>
+                <input type="button" class="buttonSubmit backButton" id="sendComment" value="Envoyer">
             </div>
         </form>
-    </div>
+    </div> <?php
+    } ?>
+
+    <div id="commentList"></div>
 </div>
 
 <div>

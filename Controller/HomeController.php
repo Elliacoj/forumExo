@@ -30,8 +30,18 @@ class HomeController {
         $this->render("administration", "Panel d'administration");
     }
 
+    /**
+     * Redirects into category page
+     */
     public function redirectCategory() {
         $category = filter_var($_GET['category'], FILTER_SANITIZE_STRING);
         $this->render("category", "Catégorie " . $category);
+    }
+
+    /**
+     * Redirects into regulation page
+     */
+    public function regulation() {
+        $this->render("regulation", "Réglement");
     }
 }

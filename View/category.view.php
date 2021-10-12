@@ -9,8 +9,10 @@ $allTopic = TopicManager::getManager()->getByCategory($category->getId()); ?>
 
 <h2><?= $category->getName() ?></h2>
 
-<div id="categoryDiv">
+<div id="categoryDiv"> <?php
+    if(isset($_SESSION['id'], $_SESSION['role'])) { ?>
     <div id="createTopicButton"><a href="/index.php?controller=topic&action=home">Créer un sujet</a></div> <?php
+    }
     if(count($allTopic) !== 0) {
         foreach ($allTopic as $topic) {
             $modif = '';
