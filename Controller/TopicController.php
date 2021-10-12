@@ -48,9 +48,16 @@ class TopicController {
      * Redirects into update.topic page
      */
     public function update() {
-        $idTopic = filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT);
+        if(isset($_SESSION['topic'])) {
+            $idTopic = filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT);
+            $_SESSION['topicUpdate'] = $_SESSION['topic'];
+            unset($_SESSION['topic']);
 
-        $this->render("update.topic", "Sujet", ["id" => $idTopic]);
+            $this->render("update.topic", "Sujet", ["id" => $idTopic]);
+        }
+        else {
+            header("Location: /index.php");
+        }
     }
 
     /**
@@ -60,8 +67,9 @@ class TopicController {
         $title = filter_var($_POST['updateTitleTopic'], FILTER_SANITIZE_STRING);
         $content = nl2br(filter_var($_POST['updateContentTopic'], FILTER_SANITIZE_STRING));
 
-        $topic = TopicManager::getManager()->search($_SESSION['topic']);
+        $topic = TopicManager::getManager()->search($_SESSION['topicUpdate']);
         $topic->setTitle($title)->setContent($content)->setModify(1);
+        unset($_SESSION['topicUpdate']);
 
         TopicManager::getManager()->update($topic);
 
@@ -72,24 +80,36 @@ class TopicController {
      * Add a new topic into topic table
      */
     public function archived() {
-        $topic = TopicManager::getManager()->search($_SESSION['topic']);
-        if($topic->getStatus() === 0) {
-            $topic->setStatus(1);
+        if(isset($_SESSION['topic'])) {
+            $topic = TopicManager::getManager()->search($_SESSION['topic']);
+            if($topic->getStatus() === 0) {
+                $topic->setStatus(1);
+            }
+            else {
+                $topic->setStatus(0);
+            }
+
+            TopicManager::getManager()->updateStatus($topic);
+            unset($_SESSION['topic']);
+
+            header("Location: /index.php?controller=topic&action=view&topic=" . $topic->getId() ."");
         }
         else {
-            $topic->setStatus(0);
+            header("Location: /index.php");
         }
-
-        TopicManager::getManager()->updateStatus($topic);
-
-        header("Location: /index.php?controller=topic&action=view&topic=" . $topic->getId() ."");
     }
 
     public function delete() {
-        $topic = TopicManager::getManager()->search(filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT));
-        $category = $topic->getCategoryFk()->getName();
-        TopicManager::getManager()->delete($topic->getId());
+        if(isset($_SESSION['topic'])) {
+            $topic = TopicManager::getManager()->search(filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT));
+            $category = $topic->getCategoryFk()->getName();
+            TopicManager::getManager()->delete($topic->getId());
+            unset($_SESSION['topic']);
 
-        header("Location: /index.php?controller=home&action=redirectCategory&category=" . $category ."");
+            header("Location: /index.php?controller=home&action=redirectCategory&category=" . $category ."");
+        }
+        else {
+            header("Location: /index.php");
+        }
     }
 }
