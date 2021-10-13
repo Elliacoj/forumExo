@@ -103,8 +103,10 @@ class TopicController {
         if(isset($_SESSION['topic'])) {
             $topic = TopicManager::getManager()->search(filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT));
             $category = $topic->getCategoryFk()->getName();
-            TopicManager::getManager()->delete($topic->getId());
-            unset($_SESSION['topic']);
+            if($topic->getStatus() !== 1 || $_SESSION['role'] !== 3) {
+                TopicManager::getManager()->delete($topic->getId());
+                unset($_SESSION['topic']);
+            }
 
             header("Location: /index.php?controller=home&action=redirectCategory&category=" . $category ."");
         }

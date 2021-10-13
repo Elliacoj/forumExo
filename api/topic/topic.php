@@ -27,11 +27,21 @@ switch ($requestType) {
  */
 function getComment() {
     $topic = filter_var($_SESSION['topicComment'], FILTER_SANITIZE_NUMBER_INT);
+    $role = 0;
+    $user = 0;
+
+    if(isset($_SESSION['role'], $_SESSION['id'])) {
+        $role = $_SESSION['role'];
+        $user = $_SESSION['id'];
+    }
 
     $comments = CommentManager::getManager()->get($topic);
     $allComments = [];
     foreach($comments as $comment) {
-        $allComments[] = ['username' => $comment->getUserFk()->getUsername(), 'content' => $comment->getContent(), 'role' => $_SESSION['role'], 'user' => $_SESSION['id']];
+        $allComments[] = [
+            "commentUserId" => $comment->getUserFk()->getId(), 'username' => $comment->getUserFk()->getUsername(),
+            'content' => $comment->getContent(), 'role' => $role, 'user' => $user, "status" => $comment->getTopicFk()->getStatus()
+        ];
     }
 
     return json_encode($allComments);

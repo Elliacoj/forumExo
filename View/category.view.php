@@ -18,10 +18,15 @@ $allTopic = TopicManager::getManager()->getByCategory($category->getId()); ?>
             $modif = '';
             if($topic->getModify() === 1) {
                 $modif = "Mise à jour le: ";
-            }?>
+            }
+            $status = "Ouvert";
+
+            if($topic->getStatus() === 1) {
+                $status = "Archivé";
+            } ?>
     <div class="topicDivRedirects" data-id="<?= $topic->getId() ?>">
         <div class="titleTopicList"><?= $topic->getTitle() ?></div>
-        <div class="footerTopicList"><span>Par: <?= $topic->getUserFk()->getUsername() ?></span><span><?= $modif . date("d M Y", strtotime($topic->getDatetime())) ?></span></div>
+        <div class="footerTopicList"><span>Par: <?= $topic->getUserFk()->getUsername() ?></span><span><?= $status ?></span><span><?= $modif . date("d M Y", strtotime($topic->getDatetime())) ?></span></div>
     </div> <?php
         }
 

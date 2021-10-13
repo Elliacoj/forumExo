@@ -72,23 +72,24 @@ let buttonContent = document.getElementById("sendComment");
 
 if(commentList) {
     listComment(commentList);
+    if(buttonContent) {
+        buttonContent.addEventListener("click", function () {
+            if(commentContent.value !== "") {
+                let xml = new XMLHttpRequest();
+                let data = {"content": commentContent.value};
 
-    buttonContent.addEventListener("click", function () {
-        if(commentContent.value !== "") {
-            let xml = new XMLHttpRequest();
-            let data = {"content": commentContent.value};
+                xml.responseType = "json";
+                xml.open("POST", "../../api/topic/topic.php");
+                xml.setRequestHeader('Content-Type', 'application/json');
 
-            xml.responseType = "json";
-            xml.open("POST", "../../api/topic/topic.php");
-            xml.setRequestHeader('Content-Type', 'application/json');
+                xml.send(JSON.stringify(data));
 
-            xml.send(JSON.stringify(data));
+                commentContent.value = "";
+                listComment(commentList);
+            }
 
-            commentContent.value = "";
-            listComment(commentList);
-        }
-
-    });
+        });
+    }
 }
 
 function listComment(divList) {
@@ -109,8 +110,17 @@ function listComment(divList) {
             subDivLeft.innerHTML = r['content'];
             divUsername.innerHTML = r['username'];
 
-            divButton.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i><i class=\"fas fa-pen\" title=\"Modifier\"></i>"  +
-                "<i class=\"fas fa-flag\" title=\"Signaler\"></i>";
+            if(r['commentUserId'] === r['user'] || r['role'] === 1 || r['role'] === 2) {
+                if(r['status'] !== 1) {
+                    divButton.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i><i class=\"fas fa-pen\" title=\"Modifier\"></i>"  +
+                        "<i class=\"fas fa-flag\" title=\"Signaler\"></i>";
+                }
+                else if(r['status'] === 1 && r['role'] === 1) {
+                    divButton.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i><i class=\"fas fa-pen\" title=\"Modifier\"></i>"  +
+                        "<i class=\"fas fa-flag\" title=\"Signaler\"></i>";
+                }
+
+            }
 
             div.style.cssText = "width: 80%; margin: 2% auto; display: flex; background-color: white; padding: 2%; margin-top: 10px;"
             subDivLeft.style.cssText = "width: 80%;";
