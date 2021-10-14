@@ -113,3 +113,26 @@ if(isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
     </div>
 </div>
 
+<div class="administrationDiv">
+    <div class="firstDivAdmin">
+        <h3>Commentaires signalés</h3>
+        <p class="dropdownList"><i class="fas fa-arrows-alt-v"></i></p>
+    </div>
+    <div class="firstDivAdmin">
+        <h4>Liste des commentaires</h4>
+        <table id="tableReport">
+            <thead>
+                <tr>
+                    <th>Sujet</th>
+                    <th>Signalé</th>
+                    <th>Signaleur</th>
+                    <th>Contenu</th>
+                    <th>Topic</th>
+                    <th>Décision</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>
+

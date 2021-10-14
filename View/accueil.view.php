@@ -9,7 +9,10 @@ use App\Model\Manager\TopicManager;
         <p id="welcomeUser">Bienvenu <?= $_SESSION['username'] ?></p>
     </div> <?php
     }
-    $allTopic = TopicManager::getManager()->get(); ?>
+    $allTopic = array_reverse(TopicManager::getManager()->get());
+    if(count($allTopic) > 5) {
+        $allTopic = array_slice($allTopic, 0, 5);
+    } ?>
 
     <div id="categoryDiv"> <?php
         $x = 0;

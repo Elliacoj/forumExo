@@ -223,3 +223,32 @@ function ban(val, userVal){
 
     userDropDown();
 }
+
+let tableReport = document.getElementById("tableReport");
+
+function reportList() {
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = "json";
+    xhr.open("GET", "../../api/report/report.php");
+    xhr.onload = function () {
+        let response = xhr.response;
+
+        if(response.length !== 0) {
+            let tbody = document.createElement("tbody");
+
+            response.forEach(function (e) {
+                let tr = document.createElement("tr");
+                let tdTopic = document.createElement("td");
+                let tdUser = document.createElement("td");
+                let tdUserReport = document.createElement("td");
+                let tdContent = document.createElement("td");
+                let topicLink = document.createElement("td");
+                let topicA =document.createElement("a");
+                let topicDecision = document.createElement("td");
+            })
+        }
+    }
+    xhr.send();
+}
+
+reportList();

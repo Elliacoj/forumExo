@@ -92,3 +92,13 @@
         height: 1000px;
     }
 }
+
+.administrationDiv table {
+    width: 80%;
+    margin: 10px auto;
+}
+
+.administrationDiv table th {
+    color: darkcyan;
+    font-style: italic;
+}

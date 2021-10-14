@@ -5,7 +5,7 @@ use App\Model\Manager\TopicManager;
 
 $category = CategoryManager::getManager()->searchName(filter_var($_GET['category'], FILTER_SANITIZE_STRING));
 $_SESSION['category'] = $category->getId();
-$allTopic = TopicManager::getManager()->getByCategory($category->getId()); ?>
+$allTopic = array_reverse(TopicManager::getManager()->getByCategory($category->getId())); ?>
 
 <h2><?= $category->getName() ?></h2>
 

@@ -80,4 +80,12 @@ class CommentManager {
     public function get($topicFk):array {
         return ObjectManager::get("SELECT * FROM ellia_comment WHERE topic_fk = '$topicFk'", Comment::class);
     }
+
+    /**
+     * Return a table of all comment with specify topicFk
+     * @return array
+     */
+    public function getAll():array {
+        return ObjectManager::get("SELECT * FROM ellia_comment", Comment::class);
+    }
 }

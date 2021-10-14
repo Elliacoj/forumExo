@@ -19,6 +19,15 @@ switch ($requestType) {
     case "POST":
         addComment(json_decode(file_get_contents('php://input')));
         break;
+    case "DELETE":
+        deleteComment(json_decode(file_get_contents('php://input')));
+        break;
+    case "REPORT":
+        reportComment(json_decode(file_get_contents('php://input')));
+        break;
+    case "PUT":
+        updateComment(json_decode(file_get_contents('php://input')));
+        break;
 }
 
 /**
@@ -38,9 +47,14 @@ function getComment() {
     $comments = CommentManager::getManager()->get($topic);
     $allComments = [];
     foreach($comments as $comment) {
+        $color = false;
+        if($comment->getReport() === $_SESSION['id']) {
+            $color = true;
+        }
         $allComments[] = [
             "commentUserId" => $comment->getUserFk()->getId(), 'username' => $comment->getUserFk()->getUsername(),
-            'content' => $comment->getContent(), 'role' => $role, 'user' => $user, "status" => $comment->getTopicFk()->getStatus()
+            'content' => $comment->getContent(), 'role' => $role, 'user' => $user, "status" => $comment->getTopicFk()->getStatus(), "id" => $comment->getId(),
+            "color" => $color
         ];
     }
 
@@ -58,4 +72,48 @@ function addComment($data) {
 
     $comment = new Comment(null, $content, $user, $topic);
     CommentManager::getManager()->add($comment);
+}
+
+/**
+ * Delete a comment into a topic
+ * @param $data
+ */
+function deleteComment($data) {
+    $comment = CommentManager::getManager()->search(filter_var($data->comment, FILTER_SANITIZE_NUMBER_INT));
+
+    if($comment->getUserFk()->getId() === $_SESSION['id'] || $_SESSION['role'] !== 3) {
+        if($comment->getTopicFk()->getStatus() !== 1 || $_SESSION['role'] === 1) {
+            CommentManager::getManager()->delete($comment->getId());
+        }
+    }
+}
+
+/**
+ * Delete a comment into a topic
+ * @param $data
+ */
+function reportComment($data) {
+    $comment = CommentManager::getManager()->search(filter_var($data->comment, FILTER_SANITIZE_NUMBER_INT));
+    if($comment->getReport() === $_SESSION['id']) {
+        $comment->setReport(0);
+    }
+    else {
+        $comment->setReport($_SESSION['id']);
+    }
+
+    CommentManager::getManager()->updateReport($comment);
+}
+
+/**
+ * Update a comment into a topic
+ * @param $data
+ */
+function updateComment($data) {
+    $comment = CommentManager::getManager()->search(filter_var($data->comment, FILTER_SANITIZE_NUMBER_INT));
+    if($comment->getUserFk()->getId() === $_SESSION['id'] || $_SESSION['role'] !== 3) {
+        if($comment->getTopicFk()->getStatus() !== 1 || $_SESSION['role'] === 1) {
+            $comment->setcontent(filter_var($data->content, FILTER_SANITIZE_STRING));
+            CommentManager::getManager()->update($comment);
+        }
+    }
 }

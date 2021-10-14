@@ -5,7 +5,9 @@ if(buttonUpdate) {
     buttonUpdate.addEventListener("click", function () {
         buttonTopic(buttonUpdate, "update");
     });
+}
 
+if (buttonArchived) {
     buttonArchived.addEventListener("click", function () {
         buttonTopic(buttonArchived, "archived");
     });
@@ -112,14 +114,25 @@ function listComment(divList) {
 
             if(r['commentUserId'] === r['user'] || r['role'] === 1 || r['role'] === 2) {
                 if(r['status'] !== 1) {
-                    divButton.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i><i class=\"fas fa-pen\" title=\"Modifier\"></i>"  +
-                        "<i class=\"fas fa-flag\" title=\"Signaler\"></i>";
+                    divButton.innerHTML = "" +
+                        "<i class=\"fas fa-trash-alt deleteComment\" title=\"Supprimer\" data-id=\"" + r['id'] + "\"></i>" +
+                        "<i class=\"fas fa-pen modifComment\" title=\"Modifier\" data-id=\"" + r['id'] + "\"></i>"
+                        ;
                 }
                 else if(r['status'] === 1 && r['role'] === 1) {
-                    divButton.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i><i class=\"fas fa-pen\" title=\"Modifier\"></i>"  +
-                        "<i class=\"fas fa-flag\" title=\"Signaler\"></i>";
+                    divButton.innerHTML = "" +
+                        "<i class=\"fas fa-trash-alt deleteComment\" title=\"Supprimer\"></i>" +
+                        "<i class=\"fas fa-pen modifComment\" title=\"Modifier\" data-id=\"" + r['id'] + "\"></i>";
                 }
 
+            }
+
+            if(r['user'] && r['status'] !== 1) {
+                let color = "color: initial;"
+                if(r['color'] === true) {
+                    color = "color: red;"
+                }
+                divButton.innerHTML += "<i class=\"fas fa-flag reportComment\" title=\"Signaler\" data-id=\"" + r['id'] + "\" style='" + color + "'></i>";
             }
 
             div.style.cssText = "width: 80%; margin: 2% auto; display: flex; background-color: white; padding: 2%; margin-top: 10px;"
@@ -133,7 +146,97 @@ function listComment(divList) {
             subDivRight.appendChild(divUsername);
             subDivRight.appendChild(divButton);
         });
+
+        let deleteComment = document.querySelectorAll(".deleteComment");
+        let reportComment = document.querySelectorAll(".reportComment");
+        let modifComment = document.querySelectorAll(".modifComment");
+
+        deleteComment.forEach(function (e) {
+            e.addEventListener("click", function () {
+                let data = {"comment": e.dataset.id};
+                commentFunction(data,  "DELETE");
+            });
+        });
+
+        reportComment.forEach(function (e) {
+            e.addEventListener("click", function () {
+                let data = {"comment": e.dataset.id};
+                commentFunction(data,  "REPORT");
+            });
+        });
+
+        modifComment.forEach(function (e) {
+            e.addEventListener("click", modalWindowsComment);
+        });
     }
     xml.send();
 }
 
+function commentFunction(data, method) {
+    let xml = new XMLHttpRequest();
+
+    xml.responseType = "json";
+    xml.open(method, "../../api/topic/topic.php");
+    xml.setRequestHeader('Content-Type', 'application/json');
+
+    xml.send(JSON.stringify(data));
+
+    listComment(commentList);
+}
+
+function modalWindowsComment() {
+    let modifComment = document.querySelectorAll(".modifComment");
+
+    modifComment.forEach(function (e) {
+        e.removeEventListener("click", modalWindowsComment);
+    });
+
+
+    let div = document.createElement("div");
+    let input = document.createElement("input");
+    let buttonConfirm = document.createElement("button");
+    let buttonBack = document.createElement("button");
+
+    input.value = this.parentElement.parentElement.parentElement.firstChild.innerHTML;
+    buttonConfirm.innerHTML = "Confirmer";
+    buttonBack.innerHTML = "Annuler";
+
+    div.style.cssText = "position: absolute; background-color: #f0f0f0; width: 50%; border-radius: 5px; box-shadow: 5px 5px 5px darkgray; top: 40vh; left: 25vw;";
+    input.style.cssText = "width: 60%; text-align: center; padding: 10px; margin: 10px 20%"
+    buttonConfirm.style.cssText = "width: 20%; margin-left: 28.5%; margin-bottom: 10px;";
+    buttonBack.style.cssText = "width: 20%; margin-left: 5%; margin-bottom: 10px;";
+
+    div.appendChild(input);
+    div.appendChild(buttonConfirm);
+    div.appendChild(buttonBack);
+    document.body.appendChild(div);
+
+    let id = this.dataset.id;
+
+    buttonConfirm.addEventListener("click", function () {
+        buttonComment(id, input.value);
+        div.remove();
+        listComment(commentList);
+    });
+
+    buttonBack.addEventListener("click", function () {
+        modifComment.forEach(function (e) {
+            e.addEventListener("click", modalWindowsComment);
+        });
+        div.remove();
+    });
+}
+
+/**
+ * Create a session (topic) and redirects into controller topic
+ * @param button
+ * @param content
+ */
+function buttonComment(button, content) {
+    let xhr = new XMLHttpRequest();
+    let data = {"comment": button, "content": content}
+    xhr.responseType = "json";
+    xhr.open("PUT", "../../api/topic/topic.php");
+
+    xhr.send(JSON.stringify(data));
+}
