@@ -2,6 +2,8 @@
 
 use App\Model\Manager\CommentManager;
 use App\Model\Manager\UserManager;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
@@ -47,10 +49,24 @@ function report($data) {
     $comment = CommentManager::getManager()->search(filter_var($data->id, FILTER_SANITIZE_NUMBER_INT));
 
     if($data->type === 0) {
+        if($_SESSION['role'] === 2) {
+            $log = new Logger('LogAdmin');
+            $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+            $log->info("Le modérateur " . $_SESSION['username'] . " a annulé le signalement du message \"" .
+                $comment->getContent() . "\" de l'utilisateur " . $comment->getUserFk()->getUsername());
+        }
+
         $comment->setReport(0);
         CommentManager::getManager()->updateReport($comment);
     }
     else {
+        if($_SESSION['role'] === 2) {
+            $log = new Logger('LogAdmin');
+            $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+            $log->info("Le modérateur " . $_SESSION['username'] . " a supprimé le message \"" .
+                $comment->getContent() . "\" de l'utilisateur " . $comment->getUserFk()->getUsername());
+        }
+
         CommentManager::getManager()->delete($comment->getId());
     }
 }

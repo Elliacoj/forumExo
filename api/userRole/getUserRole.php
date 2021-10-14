@@ -3,6 +3,8 @@
 use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
 use App\Model\Manager\UserRoleManager;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
@@ -54,6 +56,13 @@ function updateUserRole($data) {
     $userRole = UserRoleManager::getManager()->searchUser($data->idUser);
     $userRole->setRoleFk($role);
 
+    if($_SESSION['role'] === 2) {
+        $log = new Logger('LogAdmin');
+        $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+        $log->info("Le modérateur " . $_SESSION['username'] . " a mise à jour le role de \"" .
+            $userRole->getUserFk()->getUsername() . "\"");
+    }
+
     UserRoleManager::getManager()->update($userRole);
 }
 
@@ -64,5 +73,11 @@ function updateUserRole($data) {
 function banUser($data) {
     $user = UserManager::getManager()->search($data->id);
     $user->setActivated($data->ban);
+    if($_SESSION['role'] === 2) {
+        $log = new Logger('LogAdmin');
+        $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+        $log->info("Le modérateur " . $_SESSION['username'] . " a banni/débanni l'utilisateur \"" .
+            $user->getUsername() . "\"");
+    }
     UserManager::getManager()->updateActivated($user);
 }

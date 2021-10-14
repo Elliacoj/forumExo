@@ -44,4 +44,11 @@ class HomeController {
     public function regulation() {
         $this->render("regulation", "Réglement");
     }
+
+    /**
+     * Redirects into regulation page
+     */
+    public function monologPage() {
+        $this->render("monolog", "Monolog");
+    }
 }

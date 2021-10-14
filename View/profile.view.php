@@ -14,5 +14,10 @@ if(!isset($_SESSION['id'], $_SESSION['role'], $_SESSION['username'])) {
         if($_SESSION['role'] === 1 || $_SESSION['role'] === 2) { ?>
     <div><a href="../index.php?controller=home&action=administration">Panel d'administration</a></div> <?php
         }
+    }
+    if(isset($_SESSION['id'], $_SESSION['username'], $_SESSION['role'])) {
+    if($_SESSION['role'] === 1) { ?>
+    <div><a href="../index.php?controller=home&action=monologPage">Monolog</a></div> <?php
+        }
     } ?>
 </div>

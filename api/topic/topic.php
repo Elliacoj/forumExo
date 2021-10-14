@@ -4,6 +4,8 @@ use App\Model\Entity\Comment;
 use App\Model\Manager\CommentManager;
 use App\Model\Manager\TopicManager;
 use App\Model\Manager\UserManager;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 session_start();
 
@@ -83,6 +85,13 @@ function deleteComment($data) {
 
     if($comment->getUserFk()->getId() === $_SESSION['id'] || $_SESSION['role'] !== 3) {
         if($comment->getTopicFk()->getStatus() !== 1 || $_SESSION['role'] === 1) {
+            if($_SESSION['role'] === 2) {
+                $log = new Logger('LogAdmin');
+                $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+                $log->info("Le modérateur " . $_SESSION['username'] . " a supprimé le message \"" .
+                    $comment->getContent() . "\" de l'utilisateur " . $comment->getUserFk()->getUsername());
+            }
+
             CommentManager::getManager()->delete($comment->getId());
         }
     }
@@ -112,6 +121,13 @@ function updateComment($data) {
     $comment = CommentManager::getManager()->search(filter_var($data->comment, FILTER_SANITIZE_NUMBER_INT));
     if($comment->getUserFk()->getId() === $_SESSION['id'] || $_SESSION['role'] !== 3) {
         if($comment->getTopicFk()->getStatus() !== 1 || $_SESSION['role'] === 1) {
+            if($_SESSION['role'] === 2) {
+                $log = new Logger('LogAdmin');
+                $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+                $log->info("Le modérateur " . $_SESSION['username'] . " a mise à jour le message \"" .
+                    $comment->getContent() . "\" de l'utilisateur " . $comment->getUserFk()->getUsername());
+            }
+
             $comment->setcontent(filter_var($data->content, FILTER_SANITIZE_STRING));
             CommentManager::getManager()->update($comment);
         }

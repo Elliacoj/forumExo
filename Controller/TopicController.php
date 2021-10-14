@@ -9,6 +9,8 @@ use App\Model\Entity\Topic;
 use App\Model\Manager\CategoryManager;
 use App\Model\Manager\TopicManager;
 use App\Model\Manager\UserManager;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class TopicController {
     use RenderController;
@@ -22,6 +24,7 @@ class TopicController {
 
     /**
      * Add a new topic into topic table
+     * @param $log
      */
     public function create() {
         $title = filter_var($_POST['createTitleTopic'], FILTER_SANITIZE_STRING);
@@ -31,6 +34,12 @@ class TopicController {
 
         $topic = new Topic(null, $title, $content, $user, $category);
         TopicManager::getManager()->add($topic);
+
+        if($_SESSION['role'] === 2) {
+            $log = new Logger('LogAdmin');
+            $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+            $log->info("Le modérateur " . $_SESSION['username'] . " a crée le sujet " . $title);
+        }
 
         header("Location: /index.php?controller=home&action=redirectCategory&category=" . $category->getName() ."");
     }
@@ -66,6 +75,11 @@ class TopicController {
     public function updateConfirm() {
         $title = filter_var($_POST['updateTitleTopic'], FILTER_SANITIZE_STRING);
         $content = nl2br(filter_var($_POST['updateContentTopic'], FILTER_SANITIZE_STRING));
+        if($_SESSION['role'] === 2) {
+            $log = new Logger('LogAdmin');
+            $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+            $log->info("Le modérateur " . $_SESSION['username'] . " a mise à jour le sujet " . $title);
+        }
 
         $topic = TopicManager::getManager()->search($_SESSION['topicUpdate']);
         $topic->setTitle($title)->setContent($content)->setModify(1);
@@ -83,9 +97,19 @@ class TopicController {
         if(isset($_SESSION['topic'])) {
             $topic = TopicManager::getManager()->search($_SESSION['topic']);
             if($topic->getStatus() === 0) {
+                if($_SESSION['role'] === 2) {
+                    $log = new Logger('LogAdmin');
+                    $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+                    $log->info("Le modérateur " . $_SESSION['username'] . " a archivé le sujet " . $topic->getTitle());
+                }
                 $topic->setStatus(1);
             }
             else {
+                if($_SESSION['role'] === 2) {
+                    $log = new Logger('LogAdmin');
+                    $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+                    $log->info("Le modérateur " . $_SESSION['username'] . " a désarchivé le sujet " . $topic->getTitle());
+                }
                 $topic->setStatus(0);
             }
 
@@ -104,6 +128,12 @@ class TopicController {
             $topic = TopicManager::getManager()->search(filter_var($_SESSION['topic'], FILTER_SANITIZE_NUMBER_INT));
             $category = $topic->getCategoryFk()->getName();
             if($topic->getStatus() !== 1 || $_SESSION['role'] !== 3) {
+                if($_SESSION['role'] === 2) {
+                    $log = new Logger('LogAdmin');
+                    $log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'] . '/log.txt', Logger::INFO));
+                    $log->info("Le modérateur " . $_SESSION['username'] . " a supprimé le sujet " . $topic->getTitle());
+                }
+
                 TopicManager::getManager()->delete($topic->getId());
                 unset($_SESSION['topic']);
             }

@@ -10,7 +10,7 @@ $allUser = array_slice((UserManager::getManager()->get()), 1);
 $allRole = array_slice((RoleManager::getManager()->get()), 1);
 $comments = CommentManager::getManager()->getAll();
 
-if(!isset($_SESSION['id'], $_SESSION['role'], $_SESSION['username'])) {
+if(!isset($_SESSION['id'], $_SESSION['role'], $_SESSION['username']) || $_SESSION['role'] === 3) {
     header("Location: ../index.php?controller=user&error=10");
 }
 ?>
