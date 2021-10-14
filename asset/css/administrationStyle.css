@@ -106,3 +106,26 @@
 .administrationDiv table tbody {
     text-align: center;
 }
+
+.buttonViewReport {
+    cursor: pointer;
+}
+
+.buttonViewReport:hover, .administrationDiv table a:hover, .administrationDiv tbody td:last-child i:hover {
+    opacity: 0.5;
+}
+
+.administrationDiv table a {
+    color: #121212;
+}
+
+.administrationDiv tbody td i:first-child {
+    padding-bottom: 10px;
+}
+
+.administrationDiv tbody td {
+    padding: 5px 0;
+}
+
+
+

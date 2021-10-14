@@ -1,12 +1,14 @@
 <?php
 
 use App\Model\Manager\CategoryManager;
+use App\Model\Manager\CommentManager;
 use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
 
 $categories = CategoryManager::getManager()->get();
 $allUser = array_slice((UserManager::getManager()->get()), 1);
 $allRole = array_slice((RoleManager::getManager()->get()), 1);
+$comments = CommentManager::getManager()->getAll();
 
 if(!isset($_SESSION['id'], $_SESSION['role'], $_SESSION['username'])) {
     header("Location: ../index.php?controller=user&error=10");
@@ -131,8 +133,22 @@ if(isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
                     <th>Décision</th>
                 </tr>
             </thead>
-            <tbody id="tbodyReport">
-
+            <tbody id="tbodyReport"> <?php
+                foreach($comments as $comment) {
+                    if($comment->getReport() !== 0) {
+                        $userReport = UserManager::getManager()->search($comment->getReport());
+                        ?>
+                <tr>
+                    <td><?= $comment->getTopicFk()->getTitle() ?></td>
+                    <td><?= $comment->getUserFk()->getUsername() ?></td>
+                    <td><?= $userReport->getUsername() ?></td>
+                    <td class="buttonViewReport" data-content="<?= $comment->getContent() ?>">Voir</td>
+                    <td><a href="/index.php?controller=topic&action=view&topic=<?= $comment->getTopicFk()->getId() ?>">Lien</a></td>
+                    <td><i class="fas fa-check checkReport" title="Vérifié" data-comment="<?= $comment->getId() ?>"></i><i class="fas fa-trash-alt deleteReport" title="Supprimer"data-comment="<?= $comment->getId() ?>"></i></td>
+                </tr> <?php
+                    }
+                }
+            ?>
             </tbody>
         </table>
     </div>

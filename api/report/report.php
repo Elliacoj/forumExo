@@ -11,6 +11,7 @@ $requestType = $_SERVER['REQUEST_METHOD'];
 switch ($requestType) {
     case "PUT":
         $data = json_decode(file_get_contents('php://input'));
+        report($data);
         break;
     case "GET":
         echo getCommentReport();
@@ -36,4 +37,20 @@ function getCommentReport() {
         }
     }
     return json_encode($allComment);
+}
+
+/**
+ * Delete or change report for a comment into comment table
+ * @param $data
+ */
+function report($data) {
+    $comment = CommentManager::getManager()->search(filter_var($data->id, FILTER_SANITIZE_NUMBER_INT));
+
+    if($data->type === 0) {
+        $comment->setReport(0);
+        CommentManager::getManager()->updateReport($comment);
+    }
+    else {
+        CommentManager::getManager()->delete($comment->getId());
+    }
 }
