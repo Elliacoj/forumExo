@@ -341,11 +341,11 @@ h2 {
 }
 
 #updateTopic {
-    right: 3%;
+    right: 40px;
 }
 
 #archivedTopic {
-    right: 6%;
+    right: 80px;
 }
 
 #aButton {

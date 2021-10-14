@@ -21,6 +21,9 @@ $category = CategoryManager::getManager()->search(filter_var($_SESSION['category
         </div>
     </form>
     <div>
-        <input type="button" value="Retour" class="buttonSubmit backButton">
+        <a href="/index.php?controller=home&action=redirectCategory&category=<?= $category->getName() ?>">
+            <input type="button" value="Retour" class="buttonSubmit backButton">
+        </a>
     </div>
+
 </div>

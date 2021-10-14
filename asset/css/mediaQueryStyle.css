@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 800px) {
-    #loginCreateDiv {
+    #loginCreateDiv, #categoryDiv, #topicDiv, .administrationDiv, #newTopic, #commentDiv {
         width: 100%;
     }
 
@@ -25,10 +25,22 @@
     nav {
         width: 95%;
     }
+
+    #updateTopic {
+        right: 30px;
+    }
+
+    #archivedTopic {
+        right: 55px;
+    }
 }
 
 @media screen and (max-width: 550px) {
     HTML {
         font-size: 35%;
+    }
+
+    #newTopic form div:first-child input, #newTopic textarea {
+        width: 80%;
     }
 }
