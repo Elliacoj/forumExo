@@ -82,7 +82,7 @@ class CommentManager {
     }
 
     /**
-     * Return a table of all comment with specify topicFk
+     * Return a table of all comment
      * @return array
      */
     public function getAll():array {

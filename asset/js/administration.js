@@ -1,20 +1,50 @@
 let buttonDropdown = document.querySelectorAll(".administrationDiv i");
+let tableBody = document.getElementById("tbodyReport");
 
-buttonDropdown.forEach(function (e) {
-    const style = window.getComputedStyle(e.parentElement.parentElement.parentElement, null);
-    const height = Math.ceil(parseFloat(style.getPropertyValue('height'))) + 'px';
-    e.parentElement.parentElement.parentElement.style.height = "70px";
+function reportList() {
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = "json";
+    xhr.open("GET", "../../api/report/report.php");
+    xhr.onload = function () {
+        let response = xhr.response;
 
-    e.addEventListener("click", function () {
-        if(Math.ceil(parseFloat(style.getPropertyValue('height'))) === 70) {
-            dropDown(e, height);
+        if(response.length !== 0) {
+
+            response.forEach(function (r) {
+                let tr = document.createElement("tr");
+                let tdTopic = document.createElement("td");
+                let tdUser = document.createElement("td");
+                let tdUserReport = document.createElement("td");
+                let tdContent = document.createElement("td");
+                let tdTopicLink = document.createElement("td");
+                let topicA =document.createElement("a");
+                let tdDecision = document.createElement("td");
+
+                tdTopic.innerHTML = r['topicName'];
+                tdUser.innerHTML = r['username'];
+                tdUserReport.innerHTML = r['usernameReport'];
+                tdContent.innerHTML = r['content'];
+                topicA.innerHTML = 'Lien';
+                topicA.href = '/index.php?controller=topic&action=view&topic=' + r['topicFk'] + ''
+                tdDecision.innerHTML = "<i class=\"fas fa-trash-alt\" title=\"Supprimer\"></i>"
+
+                tableBody.appendChild(tr);
+                tr.appendChild(tdTopic);
+                tr.appendChild(tdUser);
+                tr.appendChild(tdUserReport);
+                tr.appendChild(tdContent);
+                tr.appendChild(tdTopicLink);
+                tdTopicLink.appendChild(topicA);
+                tr.appendChild(tdDecision);
+            })
         }
-        else {
-            dropDown(e, "70px");
-        }
+    }
+    xhr.send();
 
-    });
-});
+
+}
+
+reportList();
 
 function dropDown(e, height) {
     e.parentElement.parentElement.parentElement.animate([
@@ -224,31 +254,21 @@ function ban(val, userVal){
     userDropDown();
 }
 
-let tableReport = document.getElementById("tableReport");
+dropDownButton();
 
-function reportList() {
-    let xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
-    xhr.open("GET", "../../api/report/report.php");
-    xhr.onload = function () {
-        let response = xhr.response;
+function dropDownButton() {
+    buttonDropdown.forEach(function (e) {
+        const style = window.getComputedStyle(e.parentElement.parentElement.parentElement, null);
+        const height = Math.ceil(parseFloat(style.getPropertyValue('height'))) + 'px';
+        e.parentElement.parentElement.parentElement.style.height = "70px";
 
-        if(response.length !== 0) {
-            let tbody = document.createElement("tbody");
-
-            response.forEach(function (e) {
-                let tr = document.createElement("tr");
-                let tdTopic = document.createElement("td");
-                let tdUser = document.createElement("td");
-                let tdUserReport = document.createElement("td");
-                let tdContent = document.createElement("td");
-                let topicLink = document.createElement("td");
-                let topicA =document.createElement("a");
-                let topicDecision = document.createElement("td");
-            })
-        }
-    }
-    xhr.send();
+        e.addEventListener("click", function () {
+            if(Math.ceil(parseFloat(style.getPropertyValue('height'))) === 70) {
+                dropDown(e, height);
+            }
+            else {
+                dropDown(e, "70px");
+            }
+        });
+    });
 }
-
-reportList();

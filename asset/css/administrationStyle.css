@@ -102,3 +102,7 @@
     color: darkcyan;
     font-style: italic;
 }
+
+.administrationDiv table tbody {
+    text-align: center;
+}

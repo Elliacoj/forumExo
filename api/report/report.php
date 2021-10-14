@@ -25,7 +25,7 @@ function getCommentReport() {
     $comments = CommentManager::getManager()->getAll();
     $allComment = [];
 
-    foreach ($comments as $comment) {
+    foreach($comments as $comment) {
         if($comment->getReport() !== 0) {
             $userReport = UserManager::getManager()->search($comment->getReport());
             $allComment[] = [
@@ -34,6 +34,6 @@ function getCommentReport() {
                 'topicName' => $comment->getTopicFk()->getTitle()
                 ];
         }
-        return json_encode($allComment);
     }
+    return json_encode($allComment);
 }
