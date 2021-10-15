@@ -50,7 +50,7 @@ function getComment() {
     $allComments = [];
     foreach($comments as $comment) {
         $color = false;
-        if($comment->getReport() === $_SESSION['id']) {
+        if(isset($_SESSION['id']) && $comment->getReport() === $_SESSION['id']) {
             $color = true;
         }
         $allComments[] = [

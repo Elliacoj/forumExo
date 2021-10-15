@@ -46,6 +46,22 @@ class UserManager {
      * @param User $user
      * @return bool
      */
+    public function updatePremium(User $user):bool {
+        $id = $user->getId();
+        $premium = $user->getPremium();
+        $datePremium = $user->getDatePremium();
+
+
+        $data = ["id" => $id, "premium" => $premium, "datePremium" => $datePremium];
+
+        return ObjectManager::update("UPDATE ellia_user SET premium = :premium, date_premium = :datePremium WHERE id = :id", $data);
+    }
+
+    /**
+     * Update a data into User table
+     * @param User $user
+     * @return bool
+     */
     public function updateActivated(User $user):bool {
         $id = $user->getId();
         $activated = $user->getActivated();

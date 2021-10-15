@@ -18,6 +18,9 @@ if(isset($_GET['controller'])) {
                     $method = filter_var($_GET['action'], FILTER_SANITIZE_STRING);
                     $controller->$method();
                 }
+                else {
+                    $controller->homePage();
+                }
             }
             catch (ReflectionException $reflectionException) {
                 echo $reflectionException->getMessage();
@@ -27,8 +30,9 @@ if(isset($_GET['controller'])) {
             $controller->homePage();
         }
     }
-
-
+    else {
+        (new HomeController())->homePage();
+    }
 }
 else {
     (new HomeController())->homePage();

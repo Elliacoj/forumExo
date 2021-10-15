@@ -402,3 +402,13 @@ h2 {
     margin-top: 20px;
     cursor: pointer;
 }
+
+#paypalDiv {
+    width: 50%;
+    margin: 5% auto;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 7px 7px 5px darkgray;
+    text-align: center;
+    padding: 2%;
+}

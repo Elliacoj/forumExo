@@ -8,6 +8,8 @@ class User {
     private ?string $password;
     private ?string $mail;
     private ?int $activated;
+    private ?int $premium;
+    private ?string $datePremium;
 
     /**
      * User constructor.
@@ -16,14 +18,19 @@ class User {
      * @param string|null $password
      * @param string|null $mail
      * @param int|null $activated
+     * @param int|null $premium
+     * @param string|null $datePremium
      */
-    public function __construct(int $id = null, string $username = null, string $password = null, string $mail = null, int $activated = null)
+    public function __construct(int $id = null, string $username = null, string $password = null, string $mail = null, int $activated = null,
+    int $premium = null, string $datePremium = null)
     {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->mail = $mail;
         $this->activated = $activated;
+        $this->premium = $premium;
+        $this->datePremium = $datePremium;
     }
 
     /**
@@ -112,6 +119,46 @@ class User {
     public function setActivated(?int $activated): User
     {
         $this->activated = $activated;
+        return $this;
+    }
+
+    /**
+     * Return the premium of User
+     * @return int|null
+     */
+    public function getPremium(): ?int
+    {
+        return $this->premium;
+    }
+
+    /**
+     * Set the premium of User
+     * @param int|null $premium
+     * @return User
+     */
+    public function setPremium(?int $premium): User
+    {
+        $this->premium = $premium;
+        return $this;
+    }
+
+    /**
+     * Return the date premium of User
+     * @return string|null
+     */
+    public function getDatePremium(): ?string
+    {
+        return $this->datePremium;
+    }
+
+    /**
+     * Set the date premium of User
+     * @param string|null $datePremium
+     * @return User
+     */
+    public function setDatePremium(?string $datePremium): User
+    {
+        $this->datePremium = $datePremium;
         return $this;
     }
 }

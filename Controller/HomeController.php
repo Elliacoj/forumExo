@@ -46,9 +46,16 @@ class HomeController {
     }
 
     /**
-     * Redirects into regulation page
+     * Redirects into monolog page
      */
     public function monologPage() {
         $this->render("monolog", "Monolog");
+    }
+
+    /**
+     * Redirects into paypal page
+     */
+    public function paypalPage() {
+        $this->render("paypal.page", "Monolog");
     }
 }
